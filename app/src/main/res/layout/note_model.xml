@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    style="@style/Widget.MaterialComponents.CardView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:id="@+id/note_card"
+    app:rippleColor="#2196F3"
+    android:checkable="true"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/dot"
+            android:layout_alignTop="@id/note"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            app:riv_corner_radius="50dp"
+            android:src="@drawable/gradient_sub_3"/>
+
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:textSize="18sp"
+            android:layout_toRightOf="@id/dot"
+            android:layout_toLeftOf="@id/timestamp"
+            android:text="Shopping list, food for the week Shopping list, food for the week"
+            android:textColor="#000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/note"
+            android:id="@+id/timestamp"
+            android:paddingRight="20dp"
+            android:textStyle="bold"
+            android:text="Just Now"
+            />
+
+    </RelativeLayout>
+
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>

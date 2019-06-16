@@ -6,11 +6,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.choota.dev.ctimeago.TimeAgo;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +32,9 @@ public class MyNotes extends Fragment {
 
     DBHelper db;
     LoginPrefs sharedPrefs;
+    private RecyclerView recyclerView;
+    private FloatingActionButton fab;
+    private Animation fab_open;
 
     @Nullable
     @Override
@@ -31,33 +42,30 @@ public class MyNotes extends Fragment {
         View view = inflater.inflate(R.layout.mynotes_fragment, container, false);
         db = new DBHelper(view.getContext());
         sharedPrefs = new LoginPrefs(view.getContext());
+        recyclerView = view.findViewById(R.id.rv);
+        fab = view.findViewById(R.id.add_not_fab);;
+        fab_open = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_open);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new NotesAdapter(view.getContext()));
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab.startAnimation(fab_open);
+                View view = getLayoutInflater().inflate(R.layout.add_note, null);
+                BottomSheetDialog dialog = new BottomSheetDialog(getContext(),R.style.AppBottomSheetDialogTheme); // Style here
+                dialog.setContentView(view);
+                dialog.show();
+            }
+        });
 
 //        Sync sync = new Sync(getContext());
 //        sync.syncNotes();
 
-        db.insertNote("Note-1");
+//        db.insertNote("Note-1");
 
-        Cursor cursor = db.getAllNotes();
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                int DB_ID = Integer.parseInt(cursor.getString(cursor.getColumnIndex(Note.ID)));
-                String DB_NOTE_TEXT = cursor.getString(cursor.getColumnIndex(Note.NOTE));
-                String DB_TIMESTAMP = cursor.getString(cursor.getColumnIndex(Note.TIMESTAMP));
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                sdf.setTimeZone(TimeZone.getTimeZone("IST"));
-                try {
-                    Date d = sdf.parse(DB_TIMESTAMP);
-                    String dt = new TimeAgo().getTimeAgo(d);
-                    Log.i(TAG, "onCreateView: " + dt);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-
-                cursor.moveToNext();
-            }
-        }
         return view;
     }
 }

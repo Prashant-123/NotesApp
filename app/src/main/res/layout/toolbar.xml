@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="60dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/sync"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            app:lottie_rawRes="@raw/sync"
+            android:padding="14dp"
+            android:layout_alignParentLeft="true"
+            app:lottie_autoPlay="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:gravity="center|center_vertical"
+            android:layout_toRightOf="@id/sync"
+            android:layout_toLeftOf="@id/logout_btn"
+            android:id="@+id/app_name"
+            android:textColor="@color/black"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:id="@+id/logout_btn"
+            app:strokeWidth="0dp"
+            app:icon="@drawable/ic_logout"
+            app:iconSize="40dp"
+            app:iconTint="@null"
+            app:rippleColor="@color/logout_ripple"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
