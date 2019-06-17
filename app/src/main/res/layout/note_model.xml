@@ -25,7 +25,6 @@
             android:id="@+id/dot"
             android:layout_alignTop="@id/note"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
             app:riv_corner_radius="50dp"
             android:src="@drawable/gradient_sub_3"/>
 

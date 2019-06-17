@@ -4,10 +4,12 @@
     <color name="colorPrimaryDark">#165C97</color>
     <color name="colorAccent">#D81B60</color>
     <color name="grey_700">#616161</color>
+    <color name="grey">#80E2E1E1</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="black">#000</color>
     <color name="logout_ripple">#3CDD9DE9</color>
     <color name="add_note_start">#256BE6</color>
     <color name="add_note_end">#329FFF</color>
+    <color name="delete">#F52A1B</color>
 </resources>

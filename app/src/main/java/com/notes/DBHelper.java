@@ -7,13 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.sql.Timestamp;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "notes.db";
     private static final int DATABASE_VERSION = 1;
+    private Context context;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -34,16 +41,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public long insertNote(String text) {
+    public void insertNote(String text) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Note.NOTE, text);
-        return db.insert(Note.TABLE_NAME, null, contentValues);
+        db.insert(Note.TABLE_NAME, null, contentValues);
     }
 
-    public void insertNote(int _id, String text) {
+    public void insertNote(int _id, String text, String timestamp) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("REPLACE INTO " + Note.TABLE_NAME + " ('id', 'note') VALUES (" + _id + "," + "'" + text + "'" + ")");
+        db.execSQL("REPLACE INTO " + Note.TABLE_NAME + " ('id', 'note', 'timestamp') VALUES (" + _id + ", '" + text + "', '" + timestamp + "')");
 
     }
 
@@ -63,8 +70,14 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public void deleteNote(String id){
+    public void deleteNote(String id, LoginPrefs sp){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Note.TABLE_NAME, Note.ID + "=?", new String[]{id});
+
+        LoginPrefs loginPrefs;
+        loginPrefs = new LoginPrefs(context);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(loginPrefs.getUID()).child(id);
+        ref.setValue(null);
+
     }
 }

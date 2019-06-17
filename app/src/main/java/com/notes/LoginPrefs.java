@@ -1,14 +1,18 @@
 package com.notes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginPrefs {
+public class LoginPrefs extends AppCompatActivity {
 
     private static final String PREF_NAME = "prefs";
     private static final String EMAIL = "email";
@@ -45,6 +49,9 @@ public class LoginPrefs {
         googleSignInClient.signOut();
         editor.clear();
         editor.commit();
+
+        context.startActivity(new Intent(context, MainActivity.class));
+
     }
 
     public void createUser(String email, String name, String uid) {

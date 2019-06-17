@@ -11,7 +11,7 @@ public class Note {
             "CREATE TABLE " + TABLE_NAME + "("
                     + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + NOTE + " TEXT,"
-                    + TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                    + TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
     public String note;

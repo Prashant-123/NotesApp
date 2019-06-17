@@ -36,7 +36,6 @@ public class Login extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-//        shared_prefs.logoutUser(mGoogleSignInClient);
         if (shared_prefs.isLoggedIn()) {
             Fragment fragment = new MyNotes();
             FragmentManager fm = getFragmentManager();
@@ -81,7 +80,6 @@ public class Login extends Fragment implements View.OnClickListener {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Log.i(TAG, "handleSignInResult: " + account.getId());
             shared_prefs.createUser(account.getEmail(), account.getDisplayName(), account.getId());
             Fragment fragment = new MyNotes();
             FragmentManager fm = getFragmentManager();
@@ -90,7 +88,6 @@ public class Login extends Fragment implements View.OnClickListener {
             ft.commit();
 
         } catch (ApiException e) {
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }
 
