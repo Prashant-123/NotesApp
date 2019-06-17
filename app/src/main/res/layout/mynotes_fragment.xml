@@ -16,6 +16,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/empty_list"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"
+            app:lottie_rawRes="@raw/empty_list"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_notes"
+            android:gravity="center"
+            android:textSize="@dimen/textview_16sp"/>
+
+    </LinearLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:clickable="true"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/add_note_end"
         app:tint="@color/white"
         app:srcCompat="@drawable/ic_add"

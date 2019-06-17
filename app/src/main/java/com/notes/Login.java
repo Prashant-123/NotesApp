@@ -42,6 +42,8 @@ public class Login extends Fragment implements View.OnClickListener {
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.main_frame, fragment);
             ft.commit();
+        } else {
+            Log.i(TAG, "onStart: " + "Logged out");
         }
     }
 
