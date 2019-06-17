@@ -1,4 +1,4 @@
-package com.notes;
+package com.notes.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.notes.model.Note;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -73,7 +74,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         LoginPrefs loginPrefs;
         loginPrefs = new LoginPrefs(context);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(loginPrefs.getUID()).child(id);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/assignment").child(loginPrefs.getUID()).child(id);
         ref.setValue(null);
     }
 }

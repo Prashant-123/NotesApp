@@ -1,4 +1,4 @@
-package com.notes;
+package com.notes.model;
 
 public class Note {
 

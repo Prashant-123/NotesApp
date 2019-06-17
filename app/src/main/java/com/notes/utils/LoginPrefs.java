@@ -1,4 +1,4 @@
-package com.notes;
+package com.notes.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.notes.MainActivity;
 
 public class LoginPrefs extends AppCompatActivity {
 

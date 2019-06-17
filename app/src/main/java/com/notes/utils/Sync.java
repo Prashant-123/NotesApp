@@ -1,13 +1,18 @@
-package com.notes;
+package com.notes.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+
 import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.notes.adapter.NotesAdapter;
+import com.notes.model.Note;
+
 import java.util.ArrayList;
 
 public class Sync {
@@ -28,7 +33,7 @@ public class Sync {
     public void syncNotes() {
 
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(sharedPrefs.getUID());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/assignment").child(sharedPrefs.getUID());
         Cursor cursor = db.getAllNotes();
 
         notes.clear();

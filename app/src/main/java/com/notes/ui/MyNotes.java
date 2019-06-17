@@ -1,6 +1,5 @@
-package com.notes;
+package com.notes.ui;
 
-import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +27,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.notes.R;
+import com.notes.adapter.NotesAdapter;
+import com.notes.utils.DBHelper;
+import com.notes.utils.LoginPrefs;
+import com.notes.utils.Sync;
 
 public class MyNotes extends Fragment {
     public MyNotes() {}
