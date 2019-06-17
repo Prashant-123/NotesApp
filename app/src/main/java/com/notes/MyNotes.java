@@ -3,6 +3,7 @@ package com.notes;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import static com.notes.Login.TAG;
+
 public class MyNotes extends Fragment {
     public MyNotes() {}
 
@@ -37,7 +41,8 @@ public class MyNotes extends Fragment {
     private Animation fab_open;
     private NotesAdapter adapter;
     private MaterialButton logout_btn;
-    private LottieAnimationView sync, empty_list;
+    private LottieAnimationView sync;
+    private LinearLayout empty_list;
 
     @Nullable
     @Override
@@ -53,7 +58,7 @@ public class MyNotes extends Fragment {
         fab_open = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_open);
         adapter = new NotesAdapter(view.getContext(), Sync.notes);
 
-        if (Sync.notes.size() <= 0) empty_list.setVisibility(View.VISIBLE);
+        empty_list.setVisibility(View.VISIBLE);
 
         sync.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +76,16 @@ public class MyNotes extends Fragment {
 
         Sync sync = new Sync(getContext(), adapter);
         sync.syncNotes();
+
+        final RecyclerView.Adapter<?> adapter = recyclerView.getAdapter();
+        RecyclerView.AdapterDataObserver emptyObserver = new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                // Not called
+                if (Sync.notes.size() <= 0) empty_list.setVisibility(View.VISIBLE); else empty_list.setVisibility(View.INVISIBLE);
+            }
+        };
+        adapter.registerAdapterDataObserver(emptyObserver);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

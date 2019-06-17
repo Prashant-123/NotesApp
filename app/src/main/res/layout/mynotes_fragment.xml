@@ -21,12 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:id="@+id/empty_list"
+        android:visibility="invisible"
         android:orientation="vertical">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/empty_list"
             android:layout_width="wrap_content"
-            android:visibility="invisible"
             android:layout_height="wrap_content"
             app:lottie_rawRes="@raw/empty_list"
             android:layout_alignParentLeft="true"
@@ -37,9 +37,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no_notes"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center"
-            android:textSize="@dimen/textview_16sp"/>
+            android:text="@string/no_notes"
+            android:textSize="@dimen/textview_16sp" />
 
     </LinearLayout>
 
@@ -54,7 +55,7 @@
         app:backgroundTint="@color/add_note_end"
         app:tint="@color/white"
         app:srcCompat="@drawable/ic_add"
-        />
+        tools:ignore="VectorDrawableCompat" />
 
 
 

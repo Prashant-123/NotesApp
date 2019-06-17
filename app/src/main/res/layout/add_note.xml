@@ -19,6 +19,7 @@
             android:id="@+id/add_note_title"
             android:textSize="@dimen/add_note_title"
             android:gravity="center"
+            android:fontFamily="@font/lato_bold"
             android:textAllCaps="true"/>
 
         <ImageButton
@@ -44,8 +45,9 @@
         android:layout_marginRight="@dimen/add_note_desc_30dp"
         android:layout_marginBottom="@dimen/add_note_desc_20dp"
         android:text="Description"
-        android:textStyle="bold"
         android:textColor="@color/grey_700"
+        android:textStyle="bold"
+        android:fontFamily="@font/lato_bold"
         android:textSize="@dimen/textview_16sp"/>
 
     <EditText
@@ -59,6 +61,7 @@
         android:id="@+id/add_note_text"
         android:inputType="textMultiLine"
         android:hint="@string/add_note_et_hint"
+        android:fontFamily="@font/lato_bold"
         android:background="@drawable/note_edit_text_border"/>
 
     <com.google.android.material.button.MaterialButton
@@ -73,6 +76,7 @@
         android:shadowColor="@color/grey_700"
         android:layout_marginBottom="@dimen/add_note_btn_bottom_margin"
         android:backgroundTint="@color/add_note_start"
+        android:fontFamily="@font/lato_bold"
         style="@style/Widget.MaterialComponents.Button"/>
 
 </LinearLayout>

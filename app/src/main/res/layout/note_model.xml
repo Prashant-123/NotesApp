@@ -36,6 +36,7 @@
             android:gravity="left"
             android:textSize="@dimen/note_model_textsize"
             android:layout_toRightOf="@id/dot"
+            android:fontFamily="@font/lato"
             android:layout_toLeftOf="@id/timestamp"
             android:text="@string/my_note_text"
             android:textColor="@color/black" />
