@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/animation_view"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="@dimen/login_btn"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
 

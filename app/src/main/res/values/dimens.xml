@@ -1,3 +1,36 @@
 <resources>
+    <dimen name="toolbar_height">60dp</dimen>
+    <dimen name="logout_btn_width">60dp</dimen>
+    <dimen name="add_note_desc_30dp">30dp</dimen>
+    <dimen name="add_note_desc_20dp">20dp</dimen>
+    <dimen name="textview_16sp">16sp</dimen>
+    <dimen name="add_note_et_25dp">25dp</dimen>
+    <dimen name="add_note_et_padding_18dp">18dp</dimen>
+    <dimen name="add_note_btn_padding">140dp</dimen>
+    <dimen name="add_note_btn_bottom_margin">40dp</dimen>
+    <dimen name="add_note_title">24sp</dimen>
+    <dimen name="logout_btn_padding">16dp</dimen>
+    <dimen name="add_note_et_height">180dp</dimen>
+    <dimen name="delete_note_desc_margin">30dp</dimen>
+    <dimen name="delete_note_desc_et_padding">24dp</dimen>
+    <dimen name="delete_note_btn_margin">50dp</dimen>
+    <dimen name="login_btn">80dp</dimen>
+    <dimen name="toolbar_sync_anim_padding">14dp</dimen>
+    <dimen name="toolbar_sync_width">60dp</dimen>
+    <dimen name="toolbar_title_size">24sp</dimen>
+    <dimen name="logout_icon_size">40dp</dimen>
+    <dimen name="recycler_padding">30dp</dimen>
+    <dimen name="recycler_margin_top">20dp</dimen>
+    <dimen name="note_model_margin">10dp</dimen>
+    <dimen name="note_model_elevation">10dp</dimen>
+    <dimen name="note_model_radius">10dp</dimen>
+    <dimen name="note_model_timestamp_padding">20dp</dimen>
+    <dimen name="note_model_timestamp_margin">5dp</dimen>
+    <dimen name="note_model_timestamp_size">14sp</dimen>
+    <dimen name="note_model_textsize">18sp</dimen>
+    <dimen name="note_model_text_margin">10dp</dimen>
+    <dimen name="note_model_icon_radius">50dp</dimen>
+    <dimen name="note_model_icon_left_margin">10dp</dimen>
+    <dimen name="note_model_icon_size">15dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

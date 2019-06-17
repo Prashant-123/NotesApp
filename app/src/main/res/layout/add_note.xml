@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="@dimen/toolbar_height">
 
         <TextView
             android:layout_width="match_parent"
@@ -17,12 +17,13 @@
             android:text="New Note"
             android:textColor="@color/black"
             android:id="@+id/add_note_title"
-            android:textSize="24sp"
+            android:textSize="@dimen/add_note_title"
             android:gravity="center"
+            android:fontFamily="@font/lato_bold"
             android:textAllCaps="true"/>
 
         <ImageButton
-            android:layout_width="60dp"
+            android:layout_width="@dimen/logout_btn_width"
             android:layout_height="match_parent"
             android:src="@drawable/ic_delete"
             android:scaleType="fitCenter"
@@ -32,47 +33,50 @@
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             android:visibility="invisible"
-            android:padding="16dp"
+            android:padding="@dimen/logout_btn_padding"
             />
     </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="@dimen/add_note_desc_30dp"
+        android:layout_marginLeft="@dimen/add_note_desc_30dp"
+        android:layout_marginRight="@dimen/add_note_desc_30dp"
+        android:layout_marginBottom="@dimen/add_note_desc_20dp"
         android:text="Description"
-        android:textStyle="bold"
         android:textColor="@color/grey_700"
-        android:textSize="16sp"/>
+        android:textStyle="bold"
+        android:fontFamily="@font/lato_bold"
+        android:textSize="@dimen/textview_16sp"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"
-        android:padding="18dp"
+        android:layout_height="@dimen/add_note_et_height"
+        android:layout_marginLeft="@dimen/add_note_et_25dp"
+        android:layout_marginRight="@dimen/add_note_et_25dp"
+        android:layout_marginBottom="@dimen/add_note_et_25dp"
+        android:padding="@dimen/add_note_et_padding_18dp"
         android:gravity="start"
         android:id="@+id/add_note_text"
         android:inputType="textMultiLine"
-        android:hint="Type text to add note"
+        android:hint="@string/add_note_et_hint"
+        android:fontFamily="@font/lato_bold"
         android:background="@drawable/note_edit_text_border"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="140dp"
-        android:paddingRight="140dp"
-        android:text="Add Note"
+        android:paddingLeft="@dimen/add_note_btn_padding"
+        android:paddingRight="@dimen/add_note_btn_padding"
+        android:text="@string/add_note_btn_text"
         android:id="@+id/add_note_btn"
         app:icon="@drawable/ic_add_note"
         android:layout_gravity="center"
         android:shadowColor="@color/grey_700"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="@dimen/add_note_btn_bottom_margin"
         android:backgroundTint="@color/add_note_start"
+        android:fontFamily="@font/lato_bold"
         style="@style/Widget.MaterialComponents.Button"/>
 
 </LinearLayout>

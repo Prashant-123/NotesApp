@@ -3,6 +3,7 @@ package com.notes;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import static com.notes.Login.TAG;
+
 public class MyNotes extends Fragment {
     public MyNotes() {}
 
@@ -38,6 +42,7 @@ public class MyNotes extends Fragment {
     private NotesAdapter adapter;
     private MaterialButton logout_btn;
     private LottieAnimationView sync;
+    private LinearLayout empty_list;
 
     @Nullable
     @Override
@@ -49,8 +54,11 @@ public class MyNotes extends Fragment {
         fab = view.findViewById(R.id.add_not_fab);
         logout_btn = view.findViewById(R.id.logout_btn);
         sync = view.findViewById(R.id.sync);
+        empty_list = view.findViewById(R.id.empty_list);
         fab_open = AnimationUtils.loadAnimation(view.getContext(), R.anim.fab_open);
         adapter = new NotesAdapter(view.getContext(), Sync.notes);
+
+        empty_list.setVisibility(View.VISIBLE);
 
         sync.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +76,16 @@ public class MyNotes extends Fragment {
 
         Sync sync = new Sync(getContext(), adapter);
         sync.syncNotes();
+
+        final RecyclerView.Adapter<?> adapter = recyclerView.getAdapter();
+        RecyclerView.AdapterDataObserver emptyObserver = new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                // Not called
+                if (Sync.notes.size() <= 0) empty_list.setVisibility(View.VISIBLE); else empty_list.setVisibility(View.INVISIBLE);
+            }
+        };
+        adapter.registerAdapterDataObserver(emptyObserver);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +165,8 @@ public class MyNotes extends Fragment {
                 TextView title = edit_bottom_sheet.findViewById(R.id.add_note_title);
                 EditText noteText = edit_bottom_sheet.findViewById(R.id.add_note_text);
                 delete_btn.setVisibility(View.VISIBLE);
-                noteText.setText(Sync.notes.get(position).note);
+                noteText.setText(Sync.notes.get(position).note);Sync sync = new Sync(getContext(), adapter);
+        sync.syncNotes();
                 MaterialButton submit = edit_bottom_sheet.findViewById(R.id.add_note_btn);
                 submit.setText("Update Note");
                 title.setText("Update Note");
@@ -163,9 +182,12 @@ public class MyNotes extends Fragment {
                         final AlertDialog dialog = builder.create();
                         dialog.show();
 
+                        TextView note;
                         MaterialButton delete, cancel;
+                        note = dialog.findViewById(R.id.preview_text);
                         delete = dialog.findViewById(R.id.delete_btn);
                         cancel = dialog.findViewById(R.id.cancel_btn);
+                        note.setText(Sync.notes.get(position).note);
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -180,6 +202,7 @@ public class MyNotes extends Fragment {
                                 sync.syncNotes();
                                 dialog.dismiss();
                                 bottomSheetDialog.dismiss();
+                                adapter.notifyDataSetChanged();
                             }
                         });
                     }

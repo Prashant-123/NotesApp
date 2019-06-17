@@ -1,11 +1,13 @@
 package com.notes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -51,6 +53,7 @@ public class LoginPrefs extends AppCompatActivity {
         editor.commit();
 
         context.startActivity(new Intent(context, MainActivity.class));
+        ((Activity) context).finish();
 
     }
 

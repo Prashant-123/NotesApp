@@ -78,6 +78,5 @@ public class DBHelper extends SQLiteOpenHelper {
         loginPrefs = new LoginPrefs(context);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(loginPrefs.getUID()).child(id);
         ref.setValue(null);
-
     }
 }
