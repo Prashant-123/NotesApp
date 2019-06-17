@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="@string/description"
         android:textSize="@dimen/textview_16sp"
         android:textStyle="bold"
         android:fontFamily="@font/lato_bold"
@@ -51,7 +51,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel_btn"
             android:id="@+id/cancel_btn"
             android:layout_alignParentStart="true"
             app:icon="@drawable/ic_cancel_white_24dp"

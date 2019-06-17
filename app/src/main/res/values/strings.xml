@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">My Notes</string>
-    <string name="title_activity_test">TEST</string>
     <string name="add_note_et_hint">Type text to add note</string>
     <string name="add_note_btn_text">Add Note</string>
     <string name="my_note_text">My Note</string>
     <string name="timestamp_text">TimeStamp</string>
     <string name="no_notes">No Notes found... Tap to add.</string>
+    <string name="new_note">New Note</string>
+    <string name="description">Description</string>
+    <string name="cancel_btn">Cancel</string>
 </resources>

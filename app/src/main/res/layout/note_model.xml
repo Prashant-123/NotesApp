@@ -12,7 +12,8 @@
     app:rippleColor="@color/colorPrimary"
     android:checkable="true"
     app:cardCornerRadius="@dimen/note_model_radius"
-    app:cardElevation="@dimen/note_model_elevation">
+    app:cardElevation="@dimen/note_model_elevation"
+    android:focusable="true">
 
     <RelativeLayout
         android:layout_width="wrap_content"

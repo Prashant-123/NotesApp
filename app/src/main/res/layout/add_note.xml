@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="New Note"
+            android:text="@string/new_note"
             android:textColor="@color/black"
             android:id="@+id/add_note_title"
             android:textSize="@dimen/add_note_title"
@@ -34,7 +34,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:visibility="invisible"
             android:padding="@dimen/logout_btn_padding"
-            />
+            android:focusable="true" />
     </RelativeLayout>
 
     <TextView

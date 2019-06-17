@@ -3,7 +3,6 @@ package com.notes;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import static com.notes.Login.TAG;
 
 public class MyNotes extends Fragment {
     public MyNotes() {}

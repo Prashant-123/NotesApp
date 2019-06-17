@@ -29,8 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:lottie_rawRes="@raw/empty_list"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
             app:lottie_loop="true"
             app:lottie_autoPlay="true" />
 
@@ -55,7 +53,8 @@
         app:backgroundTint="@color/add_note_end"
         app:tint="@color/white"
         app:srcCompat="@drawable/ic_add"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:focusable="true" />
 
 
 
