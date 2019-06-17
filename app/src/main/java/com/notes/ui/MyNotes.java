@@ -1,7 +1,7 @@
-package com.notes;
+package com.notes.ui;
 
-import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,23 +16,28 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.notes.MainActivity;
+import com.notes.R;
+import com.notes.adapter.NotesAdapter;
+import com.notes.utils.DBHelper;
+import com.notes.utils.Sync;
 
 public class MyNotes extends Fragment {
     public MyNotes() {}
 
     private DBHelper db;
-    private LoginPrefs sharedPrefs;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private Animation fab_open;
@@ -40,12 +45,33 @@ public class MyNotes extends Fragment {
     private MaterialButton logout_btn;
     private LottieAnimationView sync;
     private LinearLayout empty_list;
+    private FirebaseAuth mAuth;
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            FirebaseAuth.getInstance().removeAuthStateListener(authStateListener);
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.mynotes_fragment, container, false);
-        sharedPrefs = new LoginPrefs(view.getContext());
+        mAuth = FirebaseAuth.getInstance();
+        _AuthListener();
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+
         db = new DBHelper(view.getContext());
         recyclerView = view.findViewById(R.id.rv);
         fab = view.findViewById(R.id.add_not_fab);
@@ -78,7 +104,6 @@ public class MyNotes extends Fragment {
         RecyclerView.AdapterDataObserver emptyObserver = new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
-                // Not called
                 if (Sync.notes.size() <= 0) empty_list.setVisibility(View.VISIBLE); else empty_list.setVisibility(View.INVISIBLE);
             }
         };
@@ -126,12 +151,6 @@ public class MyNotes extends Fragment {
 
     public void Logout(final View view) {
 
-        final GoogleSignInClient mGoogleSignInClient;
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(view.getContext(), gso);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(true);
         builder.setTitle("Are you sure to Log Out?");
@@ -139,7 +158,7 @@ public class MyNotes extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sharedPrefs.logoutUser(mGoogleSignInClient);
+                        mAuth.signOut();
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, null);
@@ -162,8 +181,11 @@ public class MyNotes extends Fragment {
                 TextView title = edit_bottom_sheet.findViewById(R.id.add_note_title);
                 EditText noteText = edit_bottom_sheet.findViewById(R.id.add_note_text);
                 delete_btn.setVisibility(View.VISIBLE);
-                noteText.setText(Sync.notes.get(position).note);Sync sync = new Sync(getContext(), adapter);
-        sync.syncNotes();
+                noteText.setText(Sync.notes.get(position).note);
+
+                Sync sync = new Sync(getContext(), adapter);
+                sync.syncNotes();
+
                 MaterialButton submit = edit_bottom_sheet.findViewById(R.id.add_note_btn);
                 submit.setText("Update Note");
                 title.setText("Update Note");
@@ -194,7 +216,7 @@ public class MyNotes extends Fragment {
                         delete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                db.deleteNote(String.valueOf(Sync.notes.get(position).id), sharedPrefs);
+                                db.deleteNote(String.valueOf(Sync.notes.get(position).id));
                                 Sync sync = new Sync(view.getContext(), adapter);
                                 sync.syncNotes();
                                 dialog.dismiss();
@@ -222,5 +244,20 @@ public class MyNotes extends Fragment {
             }
         };
         return onItemClickListener;
+    }
+
+    public void _AuthListener() {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                } else {
+                    Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+                    getActivity().startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
+                }
+            }
+        };
     }
 }

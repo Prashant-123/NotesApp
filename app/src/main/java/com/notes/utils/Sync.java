@@ -1,13 +1,20 @@
-package com.notes;
+package com.notes.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+
 import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.notes.adapter.NotesAdapter;
+import com.notes.model.Note;
+
 import java.util.ArrayList;
 
 public class Sync {
@@ -15,12 +22,11 @@ public class Sync {
     public static ArrayList<Note> notes = new ArrayList<>();
     Context context;
     DBHelper db;
-    LoginPrefs sharedPrefs;
     NotesAdapter adapter;
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public Sync(Context context, NotesAdapter adapter) {
         this.context = context;
-        sharedPrefs = new LoginPrefs(context);
         db = new DBHelper(context);
         this.adapter = adapter;
     }
@@ -28,10 +34,11 @@ public class Sync {
     public void syncNotes() {
 
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(sharedPrefs.getUID());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("notes");
         Cursor cursor = db.getAllNotes();
 
         notes.clear();
+
 //        Save Local DB to Server
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {

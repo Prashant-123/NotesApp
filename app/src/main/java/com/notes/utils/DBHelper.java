@@ -1,4 +1,4 @@
-package com.notes;
+package com.notes.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,18 +6,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.notes.model.Note;
 
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "notes.db";
     private static final int DATABASE_VERSION = 1;
     private Context context;
+    private FirebaseUser user;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
         this.context = context;
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -58,7 +63,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-
     public Cursor getNote(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery( "SELECT * FROM " + Note.TABLE_NAME + " WHERE " +
@@ -67,13 +71,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public void deleteNote(String id, LoginPrefs sp){
+    public void deleteNote(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Note.TABLE_NAME, Note.ID + "=?", new String[]{id});
 
-        LoginPrefs loginPrefs;
-        loginPrefs = new LoginPrefs(context);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(loginPrefs.getUID()).child(id);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child(id);
         ref.setValue(null);
     }
 }
