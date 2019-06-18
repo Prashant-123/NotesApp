@@ -29,7 +29,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.prashant.mynotes.MainActivity;
-import com.mynotes.R;
+import com.prashant.mynotes.R;
 import com.prashant.mynotes.adapter.NotesAdapter;
 import com.prashant.mynotes.utils.DBHelper;
 import com.prashant.mynotes.utils.Sync;

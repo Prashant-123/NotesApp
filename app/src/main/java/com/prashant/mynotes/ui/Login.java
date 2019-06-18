@@ -26,7 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.mynotes.R;
+import com.prashant.mynotes.R;
 
 public class Login extends Fragment implements View.OnClickListener {
 

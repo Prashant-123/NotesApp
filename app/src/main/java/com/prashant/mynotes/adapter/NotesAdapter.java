@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.choota.dev.ctimeago.TimeAgo;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.mynotes.R;
+import com.prashant.mynotes.R;
 import com.prashant.mynotes.model.Note;
 
 import java.text.ParseException;
