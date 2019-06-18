@@ -1,4 +1,4 @@
-package com.notes.adapter;
+package com.prashant.mynotes.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.choota.dev.ctimeago.TimeAgo;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.notes.R;
-import com.notes.model.Note;
+import com.mynotes.R;
+import com.prashant.mynotes.model.Note;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

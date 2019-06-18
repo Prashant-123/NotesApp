@@ -1,4 +1,4 @@
-package com.notes.ui;
+package com.prashant.mynotes.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,11 +28,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.notes.MainActivity;
-import com.notes.R;
-import com.notes.adapter.NotesAdapter;
-import com.notes.utils.DBHelper;
-import com.notes.utils.Sync;
+import com.prashant.mynotes.MainActivity;
+import com.mynotes.R;
+import com.prashant.mynotes.adapter.NotesAdapter;
+import com.prashant.mynotes.utils.DBHelper;
+import com.prashant.mynotes.utils.Sync;
 
 public class MyNotes extends Fragment {
     public MyNotes() {}

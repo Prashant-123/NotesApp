@@ -1,4 +1,4 @@
-package com.notes.utils;
+package com.prashant.mynotes.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.notes.model.Note;
+import com.prashant.mynotes.model.Note;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -75,7 +75,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Note.TABLE_NAME, Note.ID + "=?", new String[]{id});
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child(id);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).child("notes").child(id);
         ref.setValue(null);
     }
 }

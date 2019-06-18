@@ -1,4 +1,4 @@
-package com.notes.model;
+package com.prashant.mynotes.model;
 
 public class Note {
 

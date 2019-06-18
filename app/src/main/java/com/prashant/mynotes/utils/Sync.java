@@ -1,4 +1,4 @@
-package com.notes.utils;
+package com.prashant.mynotes.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,8 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.notes.adapter.NotesAdapter;
-import com.notes.model.Note;
+import com.prashant.mynotes.adapter.NotesAdapter;
+import com.prashant.mynotes.model.Note;
 
 import java.util.ArrayList;
 

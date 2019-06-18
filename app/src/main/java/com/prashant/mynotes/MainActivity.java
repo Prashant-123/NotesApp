@@ -1,4 +1,4 @@
-package com.notes;
+package com.prashant.mynotes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.notes.ui.Login;
+import com.mynotes.R;
+import com.prashant.mynotes.ui.Login;
 
 public class MainActivity extends AppCompatActivity {
 
