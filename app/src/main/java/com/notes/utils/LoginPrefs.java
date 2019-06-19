@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,10 +44,12 @@ public class LoginPrefs extends AppCompatActivity {
 
     public Boolean isLoggedIn() { return  pref.getBoolean(IS_LOGGED_IN, false); }
 
-    public void logoutUser(GoogleSignInClient googleSignInClient) {
+    public void logoutUser(GoogleSignInClient googleSignInClient, DBHelper db) {
+        googleSignInClient.signOut();
         googleSignInClient.signOut();
         editor.clear();
         editor.commit();
+        db.clearDB();
 
         context.startActivity(new Intent(context, MainActivity.class));
         ((Activity) context).finish();

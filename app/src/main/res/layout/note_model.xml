@@ -15,9 +15,25 @@
     app:cardElevation="@dimen/note_model_elevation"
     android:focusable="true">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/note_model_timestamp_margin"
+        android:textSize="@dimen/note_model_timestamp_size"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end"
+        android:layout_alignTop="@id/note"
+        android:id="@+id/timestamp"
+        android:paddingRight="@dimen/note_model_timestamp_padding"
+        android:textStyle="bold"
+        android:text="@string/timestamp_text"
+        />
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="@dimen/logout_icon_size"
@@ -25,6 +41,8 @@
             android:layout_alignParentLeft="true"
             android:id="@+id/dot"
             android:layout_alignTop="@id/note"
+            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/note_model_icon_left_margin"
             app:riv_corner_radius="@dimen/note_model_icon_radius"
             android:src="@drawable/gradient_sub_3"/>
@@ -38,23 +56,9 @@
             android:textSize="@dimen/note_model_textsize"
             android:layout_toRightOf="@id/dot"
             android:fontFamily="@font/lato"
-            android:layout_toLeftOf="@id/timestamp"
+            android:layout_alignParentEnd="true"
             android:text="@string/my_note_text"
             android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/note_model_timestamp_margin"
-            android:textSize="@dimen/note_model_timestamp_size"
-            android:textColor="@color/black"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/note"
-            android:id="@+id/timestamp"
-            android:paddingRight="@dimen/note_model_timestamp_padding"
-            android:textStyle="bold"
-            android:text="@string/timestamp_text"
-            />
 
     </RelativeLayout>
 

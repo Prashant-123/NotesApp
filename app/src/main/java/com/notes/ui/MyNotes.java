@@ -144,7 +144,7 @@ public class MyNotes extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sharedPrefs.logoutUser(mGoogleSignInClient);
+                        sharedPrefs.logoutUser(mGoogleSignInClient, db);
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, null);
