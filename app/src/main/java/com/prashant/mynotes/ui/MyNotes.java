@@ -159,6 +159,7 @@ public class MyNotes extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mAuth.signOut();
+                        db.clearDB();
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, null);

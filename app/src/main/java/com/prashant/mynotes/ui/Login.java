@@ -104,6 +104,7 @@ public class Login extends Fragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            mGoogleSignInClient.signOut(); // Accounts prompt to ask which acount to login at every signout.
                             FirebaseUser user = mAuth.getCurrentUser();
                             Fragment fragment = new MyNotes();
                             FragmentManager fm = getFragmentManager();

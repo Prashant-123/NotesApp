@@ -6,7 +6,7 @@
     <dimen name="textview_16sp">16sp</dimen>
     <dimen name="add_note_et_25dp">25dp</dimen>
     <dimen name="add_note_et_padding_18dp">18dp</dimen>
-    <dimen name="add_note_btn_padding">140dp</dimen>
+    <dimen name="add_note_btn_padding">100dp</dimen>
     <dimen name="add_note_btn_bottom_margin">40dp</dimen>
     <dimen name="add_note_title">24sp</dimen>
     <dimen name="logout_btn_padding">16dp</dimen>

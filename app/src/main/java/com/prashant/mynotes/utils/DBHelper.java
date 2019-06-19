@@ -53,7 +53,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void insertNote(int _id, String text, String timestamp) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("REPLACE INTO " + Note.TABLE_NAME + " ('id', 'note', 'timestamp') VALUES (" + _id + ", '" + text + "', '" + timestamp + "')");
-
     }
 
 
