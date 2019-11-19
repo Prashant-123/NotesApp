@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private FirebaseUser user;
 
     public DBHelper(Context context) {
-        super(context, DATABASE_NAME , null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
@@ -58,19 +58,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllNotes() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery( "SELECT * FROM " + Note.TABLE_NAME, null );
+        Cursor res = db.rawQuery("SELECT * FROM " + Note.TABLE_NAME, null);
         return res;
     }
 
     public Cursor getNote(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery( "SELECT * FROM " + Note.TABLE_NAME + " WHERE " +
-                Note.ID + "=?", new String[] { id } );
+        Cursor res = db.rawQuery("SELECT * FROM " + Note.TABLE_NAME + " WHERE " +
+                Note.ID + "=?", new String[]{id});
         return res;
     }
 
 
-    public void deleteNote(String id){
+    public void deleteNote(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Note.TABLE_NAME, Note.ID + "=?", new String[]{id});
 

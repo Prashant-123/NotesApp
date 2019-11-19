@@ -33,7 +33,6 @@ public class Sync {
 
     public void syncNotes() {
 
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid()).child("notes");
         Cursor cursor = db.getAllNotes();
 
@@ -47,10 +46,8 @@ public class Sync {
                 String DB_TIMESTAMP = cursor.getString(cursor.getColumnIndex(Note.TIMESTAMP));
                 Note note = new Note(DB_ID, DB_NOTE_TEXT, DB_TIMESTAMP);
                 notes.add(note);
-
                 adapter.notifyDataSetChanged();
                 ref.child(String.valueOf(DB_ID)).setValue(note);
-
                 cursor.moveToNext();
             }
         }
@@ -62,12 +59,12 @@ public class Sync {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 notes.clear();
                 if (dataSnapshot.getValue() != null)
-                for (DataSnapshot dsp: dataSnapshot.getChildren()) {
-                    Note note = dsp.getValue(Note.class);
-                    notes.add(note);
-                    db.insertNote(note.id,note.note, note.timestamp);
-                    adapter.notifyDataSetChanged();
-                }
+                    for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                        Note note = dsp.getValue(Note.class);
+                        notes.add(note);
+                        db.insertNote(note.id, note.note, note.timestamp);
+                        adapter.notifyDataSetChanged();
+                    }
             }
 
             @Override
@@ -75,6 +72,5 @@ public class Sync {
 
             }
         });
-
     }
 }

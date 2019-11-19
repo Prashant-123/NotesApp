@@ -32,6 +32,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     };
 
     public Context context;
+
     public NotesAdapter(Context context, ArrayList<Note> mData) {
         this.context = context;
         this.mData = mData;
@@ -66,6 +67,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return mData.size();
     }
 
+    public void setItemClickListener(View.OnClickListener clickListener) {
+        onItemClickListener = clickListener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         RoundedImageView dot;
@@ -79,9 +84,5 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             itemView.setTag(this);
             itemView.setOnClickListener(onItemClickListener);
         }
-    }
-
-    public void setItemClickListener(View.OnClickListener clickListener) {
-        onItemClickListener = clickListener;
     }
 }

@@ -6,6 +6,6 @@
     <string name="timestamp_text">TimeStamp</string>
     <string name="no_notes">No Notes found... Tap to add.</string>
     <string name="new_note">New Note</string>
-    <string name="description">Description</string>
+    <string name="description">Note Description</string>
     <string name="cancel_btn">Cancel</string>
 </resources>

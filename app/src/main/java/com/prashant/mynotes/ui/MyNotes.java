@@ -22,10 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.prashant.mynotes.MainActivity;
@@ -35,8 +33,6 @@ import com.prashant.mynotes.utils.DBHelper;
 import com.prashant.mynotes.utils.Sync;
 
 public class MyNotes extends Fragment {
-    public MyNotes() {}
-
     private DBHelper db;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
@@ -46,8 +42,9 @@ public class MyNotes extends Fragment {
     private LottieAnimationView sync;
     private LinearLayout empty_list;
     private FirebaseAuth mAuth;
-    private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseAuth.AuthStateListener authStateListener;
+    public MyNotes() {
+    }
 
     @Override
     public void onStart() {
@@ -70,7 +67,6 @@ public class MyNotes extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         _AuthListener();
         // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         db = new DBHelper(view.getContext());
         recyclerView = view.findViewById(R.id.rv);
@@ -87,8 +83,8 @@ public class MyNotes extends Fragment {
             @Override
             public void onClick(View v) {
                 sync.playAnimation();
-                Sync sync = new Sync(getContext(), adapter);
-                sync.syncNotes();
+
+                sync();
             }
         });
 
@@ -97,14 +93,14 @@ public class MyNotes extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.setItemClickListener(ItemClickListener());
 
-        Sync sync = new Sync(getContext(), adapter);
-        sync.syncNotes();
+        sync();
 
         final RecyclerView.Adapter<?> adapter = recyclerView.getAdapter();
         RecyclerView.AdapterDataObserver emptyObserver = new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
-                if (Sync.notes.size() <= 0) empty_list.setVisibility(View.VISIBLE); else empty_list.setVisibility(View.INVISIBLE);
+                if (Sync.notes.size() <= 0) empty_list.setVisibility(View.VISIBLE);
+                else empty_list.setVisibility(View.INVISIBLE);
             }
         };
         adapter.registerAdapterDataObserver(emptyObserver);
@@ -125,28 +121,45 @@ public class MyNotes extends Fragment {
         return view;
     }
 
+    public void sync() {
+        try {
+            Sync sync = new Sync(getContext(), adapter);
+            sync.syncNotes();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Sync Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void _AddNewNote(final View view) {
         fab.startAnimation(fab_open);
-        final View bottom_sheet = getLayoutInflater().inflate(R.layout.add_note, null);
-        final BottomSheetDialog dialog = new BottomSheetDialog(getContext(),R.style.AppBottomSheetDialogTheme); // Style here
-        dialog.setContentView(bottom_sheet);
-        dialog.show();
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.add_note, null);
+        dialogBuilder.setView(dialogView);
 
-        bottom_sheet.findViewById(R.id.add_note_btn).setOnClickListener(new View.OnClickListener() {
+        final EditText addNoteEditText = dialogView.findViewById(R.id.add_note_text);
+        final AlertDialog alertDialog = dialogBuilder.create();
+
+        dialogView.findViewById(R.id.add_note_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText etNote = bottom_sheet.findViewById(R.id.add_note_text);
-                String note = String.valueOf(etNote.getText());
-                if (!note.isEmpty()) {
-                    db.insertNote(etNote.getText().toString());
-                    dialog.dismiss();
-                    Sync sync = new Sync(view.getContext(), adapter);
-                    sync.syncNotes();
-
-                } else Toast.makeText(getContext(), "Enter some text", Toast.LENGTH_SHORT).show();
+                try {
+                    String note = addNoteEditText.getText().toString().trim();
+                    if (!note.isEmpty()) {
+                        db.insertNote(note);
+                        alertDialog.dismiss();
+                        sync();
+                    } else
+                        Toast.makeText(getContext(), "Enter some text", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Insert Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        alertDialog.show();
     }
 
     public void Logout(final View view) {
@@ -167,35 +180,37 @@ public class MyNotes extends Fragment {
         dialog.show();
     }
 
-    public View.OnClickListener ItemClickListener(){
+    public View.OnClickListener ItemClickListener() {
         View.OnClickListener onItemClickListener = new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
                 final int position = viewHolder.getAdapterPosition();
 
-                final View edit_bottom_sheet = getLayoutInflater().inflate(R.layout.add_note, null);
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.AppBottomSheetDialogTheme); // Style here
-                bottomSheetDialog.setContentView(edit_bottom_sheet);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.add_note, null);
+                dialogBuilder.setView(dialogView);
 
-                ImageButton delete_btn = edit_bottom_sheet.findViewById(R.id.delete_btn);
-                TextView title = edit_bottom_sheet.findViewById(R.id.add_note_title);
-                EditText noteText = edit_bottom_sheet.findViewById(R.id.add_note_text);
+
+                final AlertDialog alertDialog = dialogBuilder.create();
+                ImageButton delete_btn = dialogView.findViewById(R.id.delete_btn);
+                TextView title = dialogView.findViewById(R.id.add_note_title);
+                EditText noteText = dialogView.findViewById(R.id.add_note_text);
                 delete_btn.setVisibility(View.VISIBLE);
                 noteText.setText(Sync.notes.get(position).note);
 
-                Sync sync = new Sync(getContext(), adapter);
-                sync.syncNotes();
+                sync();
 
-                MaterialButton submit = edit_bottom_sheet.findViewById(R.id.add_note_btn);
-                submit.setText("Update Note");
+                MaterialButton udpateButton = dialogView.findViewById(R.id.add_note_btn);
+                udpateButton.setText("Update Note");
                 title.setText("Update Note");
-
-                bottomSheetDialog.show();
 
                 delete_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        alertDialog.dismiss();
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                         builder.setCancelable(false);
                         builder.setView(LayoutInflater.from(view.getContext()).inflate(R.layout.delete_note, null));
@@ -217,31 +232,47 @@ public class MyNotes extends Fragment {
                         delete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                db.deleteNote(String.valueOf(Sync.notes.get(position).id));
-                                Sync sync = new Sync(view.getContext(), adapter);
-                                sync.syncNotes();
-                                dialog.dismiss();
-                                bottomSheetDialog.dismiss();
-                                adapter.notifyDataSetChanged();
+                                try {
+                                    db.deleteNote(String.valueOf(Sync.notes.get(position).id));
+                                    dialog.dismiss();
+                                } catch (Exception e) {
+                                    Toast.makeText(getContext(), "Delete Error", Toast.LENGTH_SHORT).show();
+                                }
+
+                                sync();
                             }
                         });
                     }
                 });
 
-                submit.setOnClickListener(new View.OnClickListener() {
+                udpateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText etNote = edit_bottom_sheet.findViewById(R.id.add_note_text);
+                        EditText etNote = dialogView.findViewById(R.id.add_note_text);
                         String note = String.valueOf(etNote.getText());
                         if (!note.isEmpty()) {
-                            db.insertNote(Sync.notes.get(position).id, etNote.getText().toString(), Sync.notes.get(position).timestamp);
-                            bottomSheetDialog.dismiss();
-                            Sync sync = new Sync(view.getContext(), adapter);
-                            sync.syncNotes();
 
-                        } else Toast.makeText(getContext(), "Enter some text", Toast.LENGTH_SHORT).show();
+                            if (Sync.notes.get(position).getNote().equals(note)) {
+                                alertDialog.dismiss();
+                                Toast.makeText(getContext(), "No changes made", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            try {
+                                db.insertNote(Sync.notes.get(position).id, etNote.getText().toString(), Sync.notes.get(position).timestamp);
+                            } catch (Exception e) {
+                                Toast.makeText(getContext(), "Update Error", Toast.LENGTH_SHORT).show();
+                            }
+
+                            alertDialog.dismiss();
+                            sync();
+
+                        } else
+                            Toast.makeText(getContext(), "Enter some text", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                alertDialog.show();
             }
         };
         return onItemClickListener;

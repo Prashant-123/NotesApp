@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom|center_horizontal"
     android:layout_gravity="center_horizontal"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:gravity="bottom|center_horizontal"
+    android:orientation="vertical">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:lottie_rawRes="@raw/notepad_anim"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
+        app:lottie_rawRes="@raw/notepad_anim" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/animation_view"
-        android:layout_marginBottom="@dimen/login_btn"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginBottom="@dimen/login_btn" />
 
 </RelativeLayout>

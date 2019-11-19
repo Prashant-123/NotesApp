@@ -30,12 +30,12 @@ import com.prashant.mynotes.R;
 
 public class Login extends Fragment implements View.OnClickListener {
 
-    public Login() {}
-
     public static final String TAG = "TAG";
     private static final int RC_SIGN_IN = 1234;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    public Login() {
+    }
 
     @Override
     public void onStart() {
@@ -105,7 +105,6 @@ public class Login extends Fragment implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             mGoogleSignInClient.signOut(); // Accounts prompt to ask which acount to login at every signout.
-                            FirebaseUser user = mAuth.getCurrentUser();
                             Fragment fragment = new MyNotes();
                             FragmentManager fm = getFragmentManager();
                             FragmentTransaction ft = fm.beginTransaction();
